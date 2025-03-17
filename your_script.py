@@ -7,6 +7,8 @@
 import streamlit as st
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # CSV file name
 csv_file = "responses.csv"
@@ -70,4 +72,15 @@ if os.path.exists(csv_file):
     st.write("📊 **Current Responses:**")
     df_responses = pd.read_csv(csv_file)
     st.dataframe(df_responses)
+# Convert categorical responses into counts
+    summary_data = df_responses.iloc[:, 2:].apply(pd.Series.value_counts).fillna(0)
 
+    # Plot the response distribution
+    fig, ax = plt.subplots(figsize=(8, 6))
+    sns.heatmap(summary_data, annot=True, cmap="coolwarm", fmt=".0f", linewidths=0.5, ax=ax)
+    
+    plt.xlabel("Responses")
+    plt.ylabel("Questions")
+    plt.title("Feedback Summary Heatmap")
+    
+    st.pyplot(fig)
