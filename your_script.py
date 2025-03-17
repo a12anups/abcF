@@ -70,5 +70,4 @@ if os.path.exists(csv_file):
     st.write("📊 **Current Responses:**")
     df_responses = pd.read_csv(csv_file)
     st.dataframe(df_responses)
-get_ipython().system('jupyter nbconvert --to script your_notebook.ipynb')
 
